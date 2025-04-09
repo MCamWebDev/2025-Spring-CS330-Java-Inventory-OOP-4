@@ -75,7 +75,13 @@ public class Armour extends Equippable implements Item
     public Item clone()
     {
         Armour cpy = new Armour();
-
+        cpy.setName(this.getName());
+        cpy.setDefense(defense);
+        cpy.setDurability(this.getDurability());
+        cpy.setElement(this.getElement());
+        cpy.setMaterial(this.getMaterial());
+        cpy.setModifier(this.getModifier());
+        cpy.setModifierLevel(this.getModifierLevel());
         return cpy;
     }
 
@@ -94,7 +100,14 @@ public class Armour extends Equippable implements Item
 
         Armour rhsItem = (Armour) rhs;
 
-        return false;
+        if (!this.getName().equals(rhsItem.getName())) {return false;}
+        if (!this.getMaterial().equals(rhsItem.getMaterial())) {return false;}
+        if (!this.getModifier().equals(rhsItem.getModifier())) {return false;}
+        if (this.getModifierLevel() != rhsItem.getModifierLevel()) {return false;}
+        if (!this.getElement().equals(rhsItem.getElement())) {return false;}
+        if (this.getDefense() != rhsItem.getDefense()) {return false;}
+
+        return true;
     }
 
     /**
@@ -104,7 +117,14 @@ public class Armour extends Equippable implements Item
     @Override
     public int hashCode()
     {
-        return -1;
+        return Objects.hash(
+            this.getName(),
+            this.getMaterial(),
+            this.getModifier(),
+            this.getModifierLevel(),
+            this.getElement(),
+            this.getDefense()
+        );
     }
 
     /**
@@ -113,7 +133,16 @@ public class Armour extends Equippable implements Item
     @Override
     public String toString()
     {
-        return "Use the provided format string";
+        //return "Use the provided format string";
+        StringBuilder strBld = new StringBuilder();
+        strBld.append(String.format("  Nme: %s\n", this.getName()));
+        strBld.append(String.format("  Dur: %d\n", this.getDurability()));
+        strBld.append(String.format("  Def: %d\n", this.getDefense()));
+        strBld.append(String.format("  Mtl: %s\n", this.getMaterial()));
+        strBld.append(String.format("  Mdr: %s (Lvl %d)\n", this.getModifier(), this.getModifierLevel()));
+        strBld.append(String.format("  Emt: %s\n", this.getElement()));
+
+        return strBld.toString();
     }
 }
 

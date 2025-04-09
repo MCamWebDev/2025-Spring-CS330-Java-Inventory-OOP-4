@@ -22,14 +22,15 @@ public class ArmourCreation implements ItemCreationStrategy
     public Item fromDefaults()
     {
         // Return a **Default** Armour
-        return null;
+        Armour armour = new Armour();
+        return armour;
     }
 
     @Override
     public int requiredNumberOfValues()
     {
         // Replace the return value;
-        return 0;
+        return 7;
     }
 
     @SuppressWarnings({
@@ -42,6 +43,16 @@ public class ArmourCreation implements ItemCreationStrategy
         Armour armour = new Armour();
 
         // Set each attribute
+        armour.setName(tokens[0]);
+
+        armour.setMaterial(tokens[1]);
+        armour.setDurability(Integer.parseInt(tokens[2]));
+
+        // Complete the remainder of this method
+        armour.setDefense(Integer.parseInt(tokens[3]));
+        armour.setModifier(tokens[4]);
+        armour.setModifierLevel(Integer.parseInt(tokens[5]));
+        armour.setElement(tokens[6]);
 
         return armour;
     }
@@ -50,6 +61,11 @@ public class ArmourCreation implements ItemCreationStrategy
     public Item fromExisting(final Item original)
     {
         // Return a clone of original
-        return null;
+        if (!(original instanceof Armour)) {
+            return null;
+        }
+
+        Armour cloneArmour = (Armour) original;
+        return cloneArmour.clone();
     }
 }
